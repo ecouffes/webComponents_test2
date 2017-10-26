@@ -1,0 +1,41 @@
+<template>
+    <style>
+    button {
+        background-color: royalblue;
+        color: #fff;
+        margin: .5em;
+        padding: 1em;
+        font-size: 16px;
+        border-radius: .5em;
+        cursor: pointer;
+        border: none;
+    }
+    </style>
+    <button>
+        <slot></slot>
+    </button>
+</template>
+
+<script>
+{
+    const currentScript = document.currentScript;
+    const _document = currentScript.ownerDocument;
+    const template = _document.querySelector('template').innerHTML;
+
+    class ButtonBlue extends HTMLElement {
+        constructor() {
+            super();
+        }
+        connectedCallback() {
+            // Shadow DOM: #shadow-root(open)
+            this.attachShadow({
+                mode: 'open'
+            }).innerHTML = template;
+        }
+    };
+
+    // Custom Elements
+    customElements.define('button-blue', ButtonBlue);
+};
+</script>
+
